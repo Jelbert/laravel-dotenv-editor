@@ -10,6 +10,7 @@ namespace Brotzka\DotenvEditor;
 
 use Brotzka\DotenvEditor\Exceptions\DotEnvException;
 use Dotenv\Exception\InvalidPathException;
+use Illuminate\Support\Str;
 
 class DotenvEditor
 {
@@ -30,7 +31,7 @@ class DotenvEditor
      */
     public function __construct()
     {
-        $backupPath      = str_finish(config('dotenveditor.backupPath'), '/');
+        $backupPath      = Str::finish(config('dotenveditor.backupPath'), '/');
         $env             = config('dotenveditor.pathToEnv');
         $filePermissions = config('dotenveditor.filePermissions');
 
@@ -508,7 +509,7 @@ class DotenvEditor
      */
     public function isStartOrEndWith($value, $string = '')
     {
-        return starts_with($value, $string) || ends_with($value, $string);
+        return str_starts_with($value, $string) || str_ends_with($value, $string);
     }
 
     /**
@@ -521,8 +522,8 @@ class DotenvEditor
      */
     public function setStartAndEndWith($value, $string = '')
     {
-        $value = str_start($value, '"');
-        $value = str_finish($value, '"');
+        $value = Str::start($value, '"');
+        $value = Str::finish($value, '"');
         return $value;
     }
 
